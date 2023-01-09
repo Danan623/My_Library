@@ -119,7 +119,7 @@ public class MyQueue<T> {
      * @return : sum of the elements currently in the queue
      */
     public int getSize(){
-        return size + 1;
+        return size;
     }
     /**
      * 
