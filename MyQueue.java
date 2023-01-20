@@ -1,3 +1,4 @@
+package datastructures;
 
 import java.util.NoSuchElementException;
 
@@ -16,9 +17,10 @@ import java.util.NoSuchElementException;
  * - T dequeue(): removes and returns the element at the front of the queue.
  * - boolean isEmpty(): returns true if the queue is empty, false otherwise.
  * - boolean isFull(): returns true if the queue is full, false otherwise.
- * - int getSize(): returns the number of elements in the queue.
+ * - int getTotalElements() returns : sum of the elements currently in the queue.
+ * - int getSize(): size of the queue.
  * - T peek(): returns the element at the front of the queue without removing it.
- * {@link} https://github.com/Danan623/My_API
+ * {@link} https://github.com/Danan623/My_Library
  * @author Daniel Andersson
  * @param <T> the type of elements in the queue
  */
@@ -26,7 +28,7 @@ public class MyQueue<T> {
 
     private int N = 2; // default array size
     private T[] queue;
-    private int size = 0;// default
+    private int total_elements = 0;// default
     private int head = 0;// default
     private int tail = 0;// default
 
@@ -42,8 +44,8 @@ public class MyQueue<T> {
             queue = increaseCapacity(N*2);
         }
         queue[head] = element;
-        size++; //increment
-        head = size;//increment
+        total_elements++; //increment
+        head = total_elements;//increment
     }
     /**
      * 
@@ -54,11 +56,11 @@ public class MyQueue<T> {
         if(isEmpty()){
             throw new NoSuchElementException("The queue is empty");
         }
-        if(N > 2 && size < queue.length/2){
+        if(N > 2 && total_elements < queue.length/2){
             queue = decreaseCapacity(N/2);
         }
-        size--; //decrement
-        head = size;//decrement
+        total_elements--; //decrement
+        head = total_elements;//decrement
         T root = queue[tail];
 
         int j = 0;
@@ -73,7 +75,7 @@ public class MyQueue<T> {
      * @return true if queue is empty else false
      */
     public boolean isEmpty(){
-        if(size == 0){
+        if(total_elements == 0){
             return true;
         }
         return false;  
@@ -83,7 +85,7 @@ public class MyQueue<T> {
      * @return : true if queue is full else false
      */
     public boolean isFull(){
-        if(size == queue.length){
+        if(total_elements == queue.length){
             return true;
         }
         return false;
@@ -96,8 +98,8 @@ public class MyQueue<T> {
     private T[] decreaseCapacity(int N){
         this.N = N;// 1/2 in size
         T[] newQueue = (T[]) new Object[N];
-        System.arraycopy(queue, 0, newQueue, 0, size);
-        head = size;
+        System.arraycopy(queue, 0, newQueue, 0, total_elements);
+        head = total_elements;
         tail = 0;
         return newQueue;
     }
@@ -109,8 +111,8 @@ public class MyQueue<T> {
     private T[] increaseCapacity(int N){
         this.N = N;// x2 in size
         T[] newQueue = (T[]) new Object[N];
-        System.arraycopy(queue, 0, newQueue, 0, size);
-        head = size;
+        System.arraycopy(queue, 0, newQueue, 0, total_elements);
+        head = total_elements;
         tail = 0;
         return newQueue;
     }
@@ -118,8 +120,15 @@ public class MyQueue<T> {
      * 
      * @return : sum of the elements currently in the queue
      */
+    public int getTotalElements(){
+        return total_elements;
+    }
+     /**
+     * 
+     * @return : queue size
+     */
     public int getSize(){
-        return size;
+        return queue.length;
     }
     /**
      * 
