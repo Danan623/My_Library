@@ -1,5 +1,6 @@
 package datastructures;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -17,9 +18,10 @@ import java.util.NoSuchElementException;
  * - T dequeue(): removes and returns the element at the front of the queue.
  * - boolean isEmpty(): returns true if the queue is empty, false otherwise.
  * - boolean isFull(): returns true if the queue is full, false otherwise.
- * - int getTotalElements() returns : sum of the elements currently in the queue.
- * - int getSize(): size of the queue.
+ * - int getTotalElements(): returns sum of the elements currently in the queue.
+ * - int getSize(): returns size of the queue.
  * - T peek(): returns the element at the front of the queue without removing it.
+ * - void display(): displays the current elements in the queue.
  * {@link} https://github.com/Danan623/My_Library
  * @author Daniel Andersson
  * @param <T> the type of elements in the queue
@@ -139,5 +141,21 @@ public class MyQueue<T> {
             throw new NoSuchElementException("The queue is empty");
         }
         return queue[head - 1];
+    }
+    /**
+     * display all elements in queue
+     */
+    public void display(){
+        T[] disp_elements = (T[]) new Object[total_elements];
+        int j = 0;
+        for(T t : queue){
+            if(t == null){
+                break;
+            }
+            disp_elements[j] = t;
+            j++;        
+        }
+        System.out.println(Arrays.toString(disp_elements));
+        
     }
 }
